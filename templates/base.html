@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Школьная Библиотека</title>
+
+    {% set bg_image_url = url_for('static', filename='358 лого.jpg') %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Убираем стандартные внешние отступы */
+            padding: 0;
+
+            /* --- СТИЛИ ФОНА --- */
+            background-image: url('{{ bg_image_url }}'); /* Путь к изображению */
+            background-size: cover; /* Изображение покроет всю область */
+            background-repeat: no-repeat; /* Изображение не повторяется */
+            background-attachment: fixed; /* Фон остается на месте при прокрутке */
+            /* --- КОНЕЦ СТИЛЕЙ ФОНА --- */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto; /* Центрируем контейнер и даем ему отступ сверху */
+            background: rgba(255, 255, 255, 0.95); /* Делаем фон контейнера полупрозрачным белым, чтобы текст был читаем */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        nav a { margin-right: 15px; text-decoration: none; color: #007bff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Система Управления Библиотекой</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Каталог Книг</a>
+                <a href="{{ url_for('add_book_page') }}">Добавить Книгу </a>
+                <a href="{{ url_for('manage_readers_page') }}">Управление Читателями</a>
+                <a href="{{ url_for('issue') }}">Выдать Книгу</a>
+                  <a href="{{ url_for('return_selection_page') }}">Возврат Книги</a>
+                <a href="{{ url_for('active_loans') }}">Активные Займы</a>
+            </nav>
+        </header>
+        <hr>
+
+        <!-- Здесь будет контент из других шаблонов -->
+        {% block content %}{% endblock %}
+
+        <hr>
+        <footer>
+            <p>&copy; Школьная Библиотека 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

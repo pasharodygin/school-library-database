@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Выдача Книги</h2>
+    
+    <form method="POST" action="{{ url_for('issue') }}">
+        <p>
+            <label for="book_id">Выберите Книгу (ID):</label><br>
+            <select id="book_id" name="book_id" required>
+                <option value="">-- Выберите книгу --</option>
+                {% for book in books %}
+                    <!-- Показываем название и ID -->
+                    <option value="{{ book.id }}">
+                        {{ book.title }} (ID: {{ book.id }}, В наличии: {{ book.available_copies }})
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        
+        <p>
+            <label for="reader_id">Выберите Читателя (ID):</label><br>
+            <select id="reader_id" name="reader_id" required>
+                <option value="">-- Выберите читателя --</option>
+                {% for reader in readers %}
+                    <!-- Показываем имя и ID -->
+                    <option value="{{ reader.id }}">
+                        {{ reader.name }} (ID: {{ reader.id }}, Класс: {{ reader.class_group }})
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        
+        <button type="submit">Выдать Книгу</button>
+    </form>
+    <p><a href="{{ url_for('index') }}">Отмена</a></p>
+{% endblock %}

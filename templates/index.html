@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Каталог Книг</h2>
+    
+    {% if books %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Жанр</th>
+                <th>Всего</th>
+                <th>В наличии</th>
+                <th>Действие</th> <!-- Добавляем новый заголовок столбца -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.genre }}</td>
+                <td>{{ book.total_copies }}</td>
+                <td>{{ book.available_copies }}</td>
+
+                <!-- НОВЫЙ БЛОК ДЕЙСТВИЙ -->
+                <td>
+                    <!-- Кнопка для удаления (POST) -->
+                    <form method="POST" action="{{ url_for('book_delete_action', book_id=book.id) }}" style="display:inline;">
+                        <button
+                            type="submit"
+                            onclick="return confirm('Вы уверены, что хотите удалить книгу ID {{ book.id }}?');"
+                            style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer;">
+                            Удалить
+                        </button>
+                    </form>
+
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>В каталоге пока нет книг. Пожалуйста, добавьте первую книгу.</p>
+    {% endif %}
+{% endblock %}

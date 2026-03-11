@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Принять Возврат Книги</h2>
+
+    {% if active_loans %}
+    <p>Выберите запись о займе, которую нужно закрыть (вернуть книгу).</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Loan ID</th>
+                <th>Книга</th>
+                <th>Читатель</th>
+                <th>Дата Выдачи</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in active_loans %}
+            <tr>
+                <td>{{ loan.id }}</td>
+                <td>{{ loan.title }}</td>
+                <td>{{ loan.name }}</td>
+                <td>{{ loan.loan_date }}</td>
+                <td>
+                    <!-- Кнопка отправляет POST-запрос на роут /return/<loan_id> -->
+                    <form method="POST" action="{{ url_for('process_return', loan_id=loan.id) }}">
+                        <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 5px 10px; cursor: pointer;">
+                            Подтвердить Возврат
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="success">На данный момент нет активных займов для обработки возврата.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('index') }}">Назад к каталогу</a></p>
+{% endblock %}

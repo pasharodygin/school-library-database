@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Добавить Новую Книгу</h2>
+    
+    <form method="POST" action="{{ url_for('add_book_page') }}">
+        <p>
+            <label for="title">Название:</label><br>
+            <input type="text" id="title" name="title" required>
+        </p>
+        <p>
+            <label for="author">Автор:</label><br>
+            <input type="text" id="author" name="author" required>
+        </p>
+        <p>
+            <label for="genre">Жанр:</label><br>
+            <input type="text" id="genre" name="genre">
+        </p>
+        <p>
+            <label for="copies">Количество копий (по умолчанию 1):</label><br>
+            <input type="number" id="copies" name="copies" value="1" min="1">
+        </p>
+        <button type="submit">Добавить Книгу</button>
+    </form>
+    <p><a href="{{ url_for('index') }}">Отмена</a></p>
+{% endblock %}

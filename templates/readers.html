@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Управление Читателями</h2>
+    
+    <h3>Добавить нового читателя</h3>
+    <form method="POST" action="{{ url_for('add_reader_route') }}">
+        <p>Имя: <input type="text" name="name" required></p>
+        <p>Класс: <input type="text" name="class_group" required></p>
+        <p>ID Ученика: <input type="text" name="student_id" required></p>
+        <button type="submit">Добавить Читателя</button>
+    </form>
+
+    <hr>
+
+    <h3>Список читателей</h3>
+    {% if readers %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Класс</th>
+                <th>Студенческий ID</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reader in readers %}
+            <tr>
+                <td>{{ reader.id }}</td>
+                <td>{{ reader.name }}</td>
+                <td>{{ reader.class_group }}</td>
+                <td>{{ reader.student_id }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_reader_route', reader_id=reader.id) }}">
+                        <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer;">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Список читателей пуст.</p>
+    {% endif %}
+    
+{% endblock %}
